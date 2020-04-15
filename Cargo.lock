@@ -185,20 +185,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "actix-simple-http"
-version = "0.1.0"
-dependencies = [
- "actix-files",
- "actix-rt",
- "actix-session",
- "actix-utils",
- "actix-web",
- "bytes",
- "env_logger",
- "futures",
-]
-
-[[package]]
 name = "actix-testing"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -307,6 +293,21 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "actix_simple_http"
+version = "0.1.0"
+dependencies = [
+ "actix-files",
+ "actix-rt",
+ "actix-service",
+ "actix-session",
+ "actix-utils",
+ "actix-web",
+ "bytes",
+ "env_logger",
+ "futures",
 ]
 
 [[package]]
