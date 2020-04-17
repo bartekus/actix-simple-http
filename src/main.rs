@@ -1,8 +1,8 @@
-use std::{env, io};
-use actix_session::{CookieSession};
-use actix_web::{middleware, App, HttpServer};
+use std::{ env, io };
+use actix_session::{ CookieSession };
+use actix_web::{ middleware, App, HttpServer };
 
-use actix_simple_http::appconfig::config_app;
+use actix_simple_http::services::config;
 
 #[actix_rt::main]
 async fn main() -> io::Result<()> {
@@ -11,14 +11,15 @@ async fn main() -> io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
-            // cookie session middleware
+            // first cookie session middleware
             .wrap(CookieSession::signed(&[0; 32]).secure(false))
-            // enable logger - always register actix-web Logger middleware last
+            // second, get and process all the services
+            .configure(config)
+            // third, enable logger - always register actix-web Logger middleware last
             .wrap(middleware::Logger::default())
-            // get and process all the services
-            .configure(config_app)
     })
         .bind("127.0.0.1:8080")?
+        .workers(8)
         .run()
         .await
 }
